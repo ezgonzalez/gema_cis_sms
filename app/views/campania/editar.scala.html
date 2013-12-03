@@ -1,0 +1,36 @@
+@(id: Long, campaniaForm: Form[models.campania.Campania])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main(null) {
+    
+    <h1>Editar Campaña</h1>
+    
+    @form(routes.CampaniaController.actualizar(id)) {
+        
+        <fieldset>
+        
+            @inputText(campaniaForm("descripcion"), '_label -> "Descripción")
+
+		    @helper.select(
+		    	campaniaForm("mesCampania"),
+	    		options(ar.com.gemasms.util.Mes.meses().toSeq.map(m => m.getNumero.toString -> m.toString).toMap),
+	    		'_label -> "Mes"
+			)
+        
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Guardar" class="btn primary"> or 
+            <a href="@routes.CampaniaController.listar()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+    @form(routes.CampaniaController.eliminar(id), 'class -> "topRight") {
+        <input type="submit" value="Eliminar" class="btn danger">
+    }
+    
+}

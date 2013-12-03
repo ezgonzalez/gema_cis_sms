@@ -1,0 +1,106 @@
+@(reporteForm: Form[beta.reporte.Reporte], user: seguridad.models.Usuario)
+
+@import helper._
+
+@main(user) {
+
+<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/reportes.css")">
+
+    @helper.form(routes.ReporteController.generar(), 'id->"formulario_rep") {
+    
+                @if(flash.contains("sindatos")) {
+                <p class="error">
+                    @flash.get("sindatos")
+                </p>
+            }
+    
+                @if(flash.contains("sindatos")) {
+                <p class="error">
+                    @flash.get("sindatos")
+                </p>
+            }
+    
+    <p>
+		    @helper.select(
+		    	reporteForm("anio"),
+	    		options(models.campania.Campania.aniosHabilitados(user)),
+	    		'_label -> "Año",
+	    		'_showConstraints -> false,
+	    		'_style -> "width: 200px;" 
+			)</p>
+            	
+            	<p>		
+		    @helper.select(
+		    	reporteForm("elMes"),
+	    		options(models.campania.Campania.mesesHabilitados(user)),
+	    		'_label -> "Mes",
+	    		'_showConstraints -> false
+			)
+</p>
+
+<p>
+@if(Contacto.todosLosSupervisoresParaElUsuario(user).size() == 1) {
+
+<p>
+            @select(
+                reporteForm("provincia.id"), 
+                options(Provincia.todasLasDelUsuario(user)), 
+                '_label -> "",
+                '_showConstraints -> false,
+                'style -> "display: none"
+            )
+            </p>
+
+            <p>
+            @select(
+                reporteForm("departamento.id"), 
+                options(Departamento.todosLosDelUsuario(user)), 
+                '_label -> "",
+                '_default -> "-- Sin filtro --",
+                '_showConstraints -> false,
+                'style -> "display: none"
+            )
+</p>
+
+            @select(
+                reporteForm("supervisor.id"), 
+                options(Contacto.todosLosSupervisoresParaElUsuario(user)), 
+                '_label -> "",
+                '_showConstraints -> false,
+                'style -> "display: none"
+            )
+            } else {
+
+<p>
+            @select(
+                reporteForm("provincia.id"), 
+                options(Provincia.todasLasDelUsuario(user)), 
+                '_label -> "Provincia",
+                '_showConstraints -> false
+            )
+            </p>
+            
+            <p>
+            @select(
+                reporteForm("departamento.id"), 
+                options(Departamento.todosLosDelUsuario(user)), 
+                '_label -> "Departamento",
+                '_default -> "-- Sin filtro --",
+                '_showConstraints -> false
+            )
+</p>
+            
+            @select(
+                reporteForm("supervisor.id"), 
+                options(Contacto.todosLosSupervisoresParaElUsuario(user)), 
+                '_label -> "Supervisor",
+                '_default -> "-- Sin filtro --",
+                '_showConstraints -> false
+            )
+            }
+            
+            </p>
+                <button type="submit">Generar Reporte</button>
+        
+    }
+}

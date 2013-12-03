@@ -1,0 +1,26 @@
+@(formulario: Form[ar.com.gemasms.campania.formulario.ConfiguracionFormulario], user: seguridad.models.Usuario)
+
+@import helper._
+
+@main(user) {
+
+<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/reportes.css")">
+
+    @helper.form(routes.FormularioController.hacer(), 'id->"formulario_rep") {
+            @if(flash.contains("sindatos")) {
+                <p class="error">@flash.get("sindatos")</p>
+            }
+            
+            <p>
+            @helper.select(
+                formulario("campaniaAResponder.id"),
+                options(models.campania.Campania.campaniasMensuales()),
+                '_label -> "Campaña",
+                '_showConstraints -> false,
+                '_style -> "width: 200px;" 
+            )
+            </p>
+    
+            <button type="submit">Generar Reporte</button>
+    }
+}

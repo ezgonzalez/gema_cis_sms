@@ -1,0 +1,57 @@
+@(idContacto: Long, contactoForm: Form[Contacto])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main(null) {
+    
+    <h1>@Messages("contacto.edicion.titulo", idContacto)</h1>
+    
+    @form(routes.ContactoController.actualizar(idContacto)) {
+        
+        <fieldset>
+        
+            @inputText(contactoForm("nombre"), '_label -> "Nombre")
+            @inputText(contactoForm("apellido"), '_label -> "Apellido")
+            @inputText(contactoForm("telefono"), '_label -> "Celular")
+            @inputText(contactoForm("dni"), '_label -> "DNI")
+
+            @select(
+                contactoForm("modem.id"), 
+                options(modem.Modem.activos), 
+                '_label -> "Modem", '_default -> "-- Elegir uno --",
+                '_showConstraints -> false
+            )
+            
+		</fieldset>
+		
+		<fieldset>
+			<legend>Grupos a los que pertenece</legend>
+				<div class="twipsies well profile">
+	             	@for(grupo <- models.contacto.grupo.Grupo.todos()) {
+	                 	@input(contactoForm("listaDeGrupos"), '_label -> "") { (id, name, value, _) =>
+	                 		@if(idContacto != null && idContacto > 0 && grupo.esTuContacto(contactoForm.get)) {
+	        					<input type='checkbox' name='listaDeGrupos' value=@grupo.getId() checked> @grupo.getNombre()</input>
+        					} else {
+        						<input type='checkbox' name='listaDeGrupos' value=@grupo.getId()> @grupo.getNombre()</input>
+        					}
+	    				}
+					}
+	        	</div>
+        </fieldset>
+	            
+
+        <div class="actions">
+            <input type="submit" value=@Messages("formulario.boton.guardar") class="btn primary"> or 
+            <a href="@routes.ContactoController.listar()" class="btn">@Messages("formulario.boton.cancelar")</a> 
+        </div>
+        
+    }
+
+	@if(idContacto != null && idContacto > 0) {    
+    	@form(routes.ContactoController.eliminar(idContacto), 'class -> "topRight") {
+        	<input type="submit" value="@Messages("formulario.boton.eliminar")" class="btn danger">
+    	}
+	}
+}

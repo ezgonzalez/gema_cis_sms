@@ -1,0 +1,74 @@
+// -----------------------------------
+// MAIN
+// -----------------------------------
+// author: mda@zenexity.com - 2011
+// -----------------------------------
+
+@import 'libs/_reset.less';
+@import 'libs/_mate.less';
+@import 'libs/_theme.less';
+
+// ----------------------- MAIN STYLES
+body {
+    background: @mainBackground;
+    color: @mainColor;
+    font: @defaultFont;
+    -webkit-font-smoothing: antialised;
+    -webkit-user-select: none;
+}
+
+a {
+    color: @links;
+    text-decoration: none;
+    &:hover {
+        color: @linksHover;
+    }
+}
+
+// --------------------------- IMPORTS
+@import 'main/_layout.less';        // General grid
+@import 'main/_widgets.less';       // Some shared elements
+@import 'main/_drawer.less';        // Project drawer
+@import 'main/_header.less';        // Top header + User bar
+@import 'main/_breadcrumb.less';    // Breadcrumb + App menu
+@import 'apps/_tasks.less';         // Tasks 
+
+
+
+#formulario_rep{
+    margin-top: 100px;
+    width: 500px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.3);
+    text-align: left;
+    margin-left: 200px;
+    
+    p {
+        width: inherit;
+        margin: 10px 10px 10px 10px;
+        color: #999;
+    }
+    
+    select {
+        margin: 10 10 10 10;
+        width: 480px;
+    }
+
+    button {
+        .button();
+        margin: 10 10 10 10;
+        width: 480px;
+        font-size: 14px;
+    }
+}
+
+#informes {
+	img {
+	 margin: 50 auto 50 auto;
+	height: 791px;
+	width: 1024px;
+	overflow: hidden; 
+	}
+}

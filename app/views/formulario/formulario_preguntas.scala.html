@@ -1,0 +1,28 @@
+@(preguntas: List[(models.campania.mensaje.MensajeCampania, models.campania.mensaje.respuesta.Respuesta)], user: seguridad.models.Usuario)
+
+@import helper._
+
+@main(user) {
+
+<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/formulario.css")">
+
+    @helper.form(routes.FormularioController.generar(), 'id->"formulario_rep") {
+            @if(flash.contains("sindatos")) {
+                <p class="error">@flash.get("sindatos")</p>
+            }
+            
+            <p>
+                    @for(pregunta <- preguntas) {
+                        <div class="pregunta">
+	                        <label for=@(pregunta._1.getCodigoMensaje())>@(pregunta._1.getMensaje())</label>
+	                        @if(flash.contains("sindatos")) {
+	                            <p class="error">@flash.get("sindatos")</p>
+	                        }
+	                        <input id=@(pregunta._1.getCodigoMensaje()) type="text" name="taskBody" />
+                        </div>
+                    }
+            </p>
+    
+            <button type="submit">Guardar respuesta</button>
+    }
+}

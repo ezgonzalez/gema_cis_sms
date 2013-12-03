@@ -1,0 +1,26 @@
+@(grupoForm: Form[models.contacto.grupo.Grupo])
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
+@import helper._
+
+@main(null) {
+    
+    <h1>Nuevo Grupo</h1>
+    
+    @form(routes.GrupoController.guardar()) {
+        
+        <fieldset>
+        
+            @inputText(grupoForm("nombre"), '_label -> "Nombre del grupo")
+
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Crear grupo" class="btn primary"> or 
+            <a href="@routes.GrupoController.listar()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+}

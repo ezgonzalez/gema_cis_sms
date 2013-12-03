@@ -1,0 +1,1 @@
+SMS_NO_ENVIADO=Ocurrió un error al intentar enviar el SMS

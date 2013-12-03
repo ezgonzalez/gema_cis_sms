@@ -1,0 +1,59 @@
+#formulario_rep {
+  margin-top: 100px;
+  width: 700px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  margin-left: 100px;
+}
+#formulario_rep p {
+  width: inherit;
+  margin: 10px 10px 10px 10px;
+  color: #999;
+}
+#formulario_rep div.pregunta {
+	margin: 10px 10px 10px 10px;
+}
+#formulario_rep input {
+	display:block;
+	width: 680px;
+}
+#formulario_rep label {
+	   display:block;
+}
+#formulario_rep button {
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid #192937;
+  background: rgba(187, 255, 255, 0.19999999999999996);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(187, 255, 255, 0.19999999999999996)), to(rgba(187, 255, 255, 0)));
+  background-image: -moz-linear-gradient(top, rgba(187, 255, 255, 0.19999999999999996), rgba(187, 255, 255, 0));
+  background-color: #2a3a48;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+  color: #c7d1d8;
+  cursor: pointer;
+  margin: 10 10 10 10;
+  width: 680px;
+  font-size: 14px;
+}
+#formulario_rep button:hover {
+  background: rgba(187, 255, 255, 0.30000000000000004);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(187, 255, 255, 0.30000000000000004)), to(rgba(187, 255, 255, 0)));
+  background-image: -moz-linear-gradient(top, rgba(187, 255, 255, 0.30000000000000004), rgba(187, 255, 255, 0));
+  background-color: #2a3a48;
+  color: #ffffff;
+}
+#informes img {
+  margin: 50 auto auto -150;
+  height: 791px;
+  width: 1024px;
+  overflow: hidden;
+}
+#formulario_rep p.error {
+  color: #c00;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+}
