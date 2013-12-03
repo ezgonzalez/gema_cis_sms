@@ -82,9 +82,8 @@ public class MensajeCampania extends Model {
 				.orderBy("numero_orden").findUnique();
 	}
 
-	public static List<MensajeCampania> obtenerTodosLosMensajes(
-			Campania campania) {
-		return finder.where().eq("campania", campania)
+	public static List<MensajeCampania> obtenerTodasLasPreguntas(Long campania) {
+		return finder.where().eq("campania.id", campania)
 				.eq("tipoMensaje", TipoMensaje.PREGUNTA)
 				.orderBy("numero_orden").findList();
 	}
@@ -221,5 +220,45 @@ public class MensajeCampania extends Model {
 				validacionesNoPasadas.add(validacion.getMensaje());
 			}
 		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((campania == null) ? 0 : campania.hashCode());
+		result = prime * result
+				+ ((codigoMensaje == null) ? 0 : codigoMensaje.hashCode());
+		result = prime * result + numeroOrden;
+		result = prime * result
+				+ ((tipoMensaje == null) ? 0 : tipoMensaje.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MensajeCampania other = (MensajeCampania) obj;
+		if (campania == null) {
+			if (other.campania != null)
+				return false;
+		} else if (!campania.equals(other.campania))
+			return false;
+		if (codigoMensaje == null) {
+			if (other.codigoMensaje != null)
+				return false;
+		} else if (!codigoMensaje.equals(other.codigoMensaje))
+			return false;
+		if (numeroOrden != other.numeroOrden)
+			return false;
+		if (tipoMensaje != other.tipoMensaje)
+			return false;
+		return true;
 	}
 }

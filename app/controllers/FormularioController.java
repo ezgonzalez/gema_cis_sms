@@ -1,13 +1,12 @@
 package controllers;
 
-import models.campania.Campania;
+import models.campania.mensaje.respuesta.Respuesta;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import seguridad.models.Usuario;
 import ar.com.gemasms.campania.formulario.ConfiguracionFormulario;
-import ar.com.gemasms.campania.formulario.FormularioRespuesta;
 
 @Security.Authenticated(Secured.class)
 public class FormularioController extends Controller {
@@ -30,8 +29,8 @@ public class FormularioController extends Controller {
 	}
 
 	public static Result mostrar(Long campania) {
-		return ok(views.html.formulario.formulario_preguntas
-				.render(new FormularioRespuesta(Campania.finder.byId(campania)).mensajesConRespuestas,
-						Usuario.findByEmail(session("dni"))));
+		return ok(views.html.formulario.formulario_preguntas.render(
+				Respuesta.obtenerMensajesYRespuestas(campania, ""),
+				Usuario.findByEmail(session("dni"))));
 	}
 }

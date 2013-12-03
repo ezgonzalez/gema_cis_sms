@@ -1,5 +1,6 @@
 package models.campania.mensaje.respuesta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,13 +12,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import models.Contacto;
-import models.Institucion;
-import models.campania.Campania;
 import models.campania.mensaje.MensajeCampania;
 import models.campania.temporal.RegistroTemporal;
 import models.mensaje.Mensaje;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import scala.Tuple2;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 
 @Entity
 @Table(name = "respuesta")
@@ -109,9 +112,33 @@ public class Respuesta extends Model {
 		return this.getCodigoMensaje() + ": " + this.getRespuesta();
 	}
 
-	public static List<Respuesta> obtenerRespuestas(Campania campania,
-			Institucion institucion) {
-		return find.where().eq("campania", campania)
-				.eq("institucion", institucion).findList();
+	public static List<Tuple2<MensajeCampania, Respuesta>> obtenerMensajesYRespuestas(
+			Long campania, String numeroInstitucion) {
+
+		List<Tuple2<MensajeCampania, Respuesta>> mensajesConRespuestas = new ArrayList<Tuple2<MensajeCampania, Respuesta>>();
+
+		List<Respuesta> respuestas = find.where().eq("campania.id", campania)
+				.eq("institucion.cue", numeroInstitucion).findList();
+
+		// agrego todos los mensajes
+		for (MensajeCampania mensaje : MensajeCampania
+				.obtenerTodasLasPreguntas(campania)) {
+
+			mensajesConRespuestas.add(new Tuple2<MensajeCampania, Respuesta>(
+					mensaje, buscarRespuesta(respuestas, mensaje)));
+		}
+
+		return mensajesConRespuestas;
+	}
+
+	private static Respuesta buscarRespuesta(List<Respuesta> respuestas,
+			final MensajeCampania mensaje) {
+		return Iterables.find(respuestas, new Predicate<Respuesta>() {
+
+			@Override
+			public boolean apply(Respuesta respuesta) {
+				return respuesta.getMensajeCampania().equals(mensaje);
+			}
+		});
 	}
 }
